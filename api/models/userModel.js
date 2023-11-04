@@ -4,12 +4,12 @@ const userSchema = new mongoose.Schema({
     username:{
         type: String,
         required:[true, 'You must provide a username'],
-        unique:[true, 'Username must be unique']
+        unique:[true, 'Username already taken']
     },
     email:{
         type: String,
         required:[true, 'You must provide an email'],
-        unique:[true, 'email must be unique']
+        unique:[true, 'email already registered, try logging in']
     },
     password:{
         type: String,
@@ -19,6 +19,4 @@ const userSchema = new mongoose.Schema({
     timestamps:true
 })
 
-const User = mongoose.model('User',userSchema);
-
-export default User;
+module.exports = mongoose.model("User", userSchema)

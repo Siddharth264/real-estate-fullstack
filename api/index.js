@@ -1,16 +1,32 @@
 const express = require('express');
-const mongoose = require('mongoose')
 require('dotenv').config()
+const dbConnect = require('./config/dbConnect')
+const userRouter = require('./routes/userRoute')
+const authRouter = require('./routes/authRoute')
+dbConnect();
 
-mongoose.connect(process.env.MONGO_URI).then(()=>{
-    console.log(`Connected to DB`)
-}).catch((err)=>{
-    console.log(`Couldn't connect to the DB, ${err}`)
-})
 const app = express();
 
 const PORT = process.env.PORT || 3030 
 
+app.use(express.json())
+
+
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
+})
+
+app.use("/api/v1/user",userRouter);
+app.use("/api/v1/auth",authRouter);
+
+//middleware
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error'
+    return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    })
 })
