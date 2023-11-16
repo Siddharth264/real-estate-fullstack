@@ -3,6 +3,7 @@ require("dotenv").config();
 const dbConnect = require("./config/dbConnect");
 const userRouter = require("./routes/userRoute");
 const authRouter = require("./routes/authRoute");
+const listingRouter = require('./routes/listingRoute')
 const cookieParser = require("cookie-parser");
 dbConnect();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/listing", listingRouter)
 
 //middleware
 

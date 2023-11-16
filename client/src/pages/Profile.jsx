@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
+import {Link} from 'react-router-dom'
 import {updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutStart, signOutFailure, signOutSuccess} from '../redux/user/userSlice'
 import {
   getDownloadURL,
@@ -193,12 +194,14 @@ export default function Profile() {
         <button disabled={loading} className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-70">
           {loading ? 'Loading...' : 'Update'}
         </button>
+        <Link className='bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95' to='/create-listing'>
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete Account</span>
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign Out</span>
       </div>
-
       {error ? <p className="text-red-700 text-lg mt-5">Error : {error}</p>:""}
       {updateSuccess ? <p className="text-blue-600 text-lg text-center mt-10">User Updated Successfully</p>:''}
     </div>
