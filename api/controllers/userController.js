@@ -1,6 +1,7 @@
 const bcryptjs = require("bcryptjs");
 const User = require("../models/userModel");
 const errorHandler = require("../utils/errors");
+const Listing = require("../models/listingModel")
 
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
@@ -45,4 +46,21 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
-module.exports = { updateUser, deleteUser };
+
+const getUserListings = async (req, res, next) =>{
+  if(req.user.id === req.params.id){
+    try{
+      const listings = await Listing.find({userRef: req.params.id});
+      res.status(200).json(listings);
+
+    }catch(error){
+      next(error)
+    }
+
+  }else{
+    return next(errorHandler(401, 'You can only get your own listings'))
+  }
+}
+
+
+module.exports = { updateUser, deleteUser ,getUserListings};
