@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 dbConnect();
 
+const _dirname = path.resolve();
 
 const app = express();
 
@@ -22,10 +23,10 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/listing", listingRouter)
 
-app.use(express.static(path.join(__dirname,'/client/dist')))
+app.use(express.static(path.join(_dirname,'/client/dist')))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,'client','dist', 'index.html'));
+  res.sendFile(path.join(_dirname,'client','dist', 'index.html'));
 })
 
 //middleware
