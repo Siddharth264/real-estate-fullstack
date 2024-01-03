@@ -5,7 +5,10 @@ const userRouter = require("./routes/userRoute");
 const authRouter = require("./routes/authRoute");
 const listingRouter = require('./routes/listingRoute')
 const cookieParser = require("cookie-parser");
+const path = require("path");
 dbConnect();
+
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -19,6 +22,12 @@ app.use(cookieParser());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/listing", listingRouter)
+
+app.use(express.static(path.join(__dirname,'/client/dist')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname,'client','dist', 'index.html'));
+})
 
 //middleware
 
