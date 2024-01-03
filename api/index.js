@@ -8,7 +8,6 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 dbConnect();
 
-const __dirname = path.resolve();
 
 const app = express();
 
