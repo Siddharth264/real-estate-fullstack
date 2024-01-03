@@ -41,7 +41,7 @@ export default function UpdateListing() {
     }
 
     fetchListing()
-  },[])
+  },[params])
   
   const handleChange = (e) => {
     if(e.target.id === 'sale' || e.target.id === 'rent'){
